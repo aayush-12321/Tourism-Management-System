@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+
+MobileStore-QuickView
+
+{% endblock %}
+
+
+{% block content %}
+
+{% load cart %}
+{% load custom_filter %}
+
+<div class="container my-4">
+    <div class="row">
+    <div class="col-md-4">
+    <div class="row">
+        <img src="{{product.image.url}}" class="card-img-top" alt="{{product.name}}"  width="222px" height="355px">
+        <!-- <img src="/uploads/{{product.image}}" width="222px" height="355px"> -->
+
+    </div>
+        <div class="card-footer p-0 no-gutters">
+            <!-- <button class="btn btn-primary my-3">Buy Now</button> -->
+            <!-- <button class="btn btn-primary mx-3 my-3">Add To Cart</button> -->
+
+            {% if product|is_in_cart:request.session.cart %}   <!-- product and cart is passed in is_in_cart =>templatetags cart.py-->
+
+						<!-- if product in cart -->
+
+						<div class="row no-gutters my-3">
+							<form action="/quickview/{{product.id}}" class="col-2 " method="post"> <!-- By using /#{{product.id}}, page will not return to top after + or - or add to cart. -->
+							<!-- <form action="/#{{product.id}}" class="col-2 " method="post"> By using /#{{product.id}}, page will not return to top after + or - or add to cart. -->
+								{% csrf_token %}
+								<input hidden type="text" name='product' value='{{product.id}}'>
+								<input hidden type="text" name='remove' value='True'>  <!-- + - home.py in-->
+
+								<input type="submit" value=" - " class="btn btn-block btn-light border-right">
+							</form>
+							<div class="text-center col">{{product|cart_quantity:request.session.cart}} in Cart</div>
+							<form action="/quickview/{{product.id}}" class="col-2 " method="post"><!-- By using /#{{product.id}}, page will not return to top after + or - or add to cart. -->
+								{% csrf_token %}
+								<input hidden type="text" name='product' value='{{product.id}}'>
+								<input type="submit" value=" + " class="btn btn-block btn-light border-left">
+							</form>
+						</div>
+						{% else %}
+						<form action="/quickview/{{product.id}}" method="POST" class="btn-block">  <!-- By using /#{{product.id}}, page will not return to top after + or - or add to cart. -->
+							{% csrf_token %}
+							<input hidden type="text" name='product' value='{{product.id}}'>
+							<input type="submit" class="float-right btn btn-light  form-control my-3"
+								value="Add To Cart">
+						</form>
+						{% endif %}
+
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <h5>{{product.name}}</h5>
+        <p> <b>Rs.{{product.price}}</b> </p>
+        <p>
+            {{product.description}}
+        </p>
+    </div>
+    </div>
+
+</div>
+
+
+
+
+{% endblock %}
