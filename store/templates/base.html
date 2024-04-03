@@ -39,7 +39,7 @@
   sticky-top navbar 
   navbar-expand-lg
    navbar-light ">
-    <a class="navbar-brand text-white" href="/">Mobile Store</a>
+    <a class="navbar-brand text-white" href="/">Tour And Travel</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -48,7 +48,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link text-white" href="/store">Store <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-white" href="/store">Home <span class="sr-only">(current)</span></a>
         </li>
 
       </ul>
@@ -66,14 +66,14 @@
       <button type="submit">Search</button> -->
   </form>
         <li class="nav-item ">
-          <a class="nav-link text-white" href="/cart">Cart 
+          <a class="nav-link text-white" href="/cart">Book Now 
             <span class="badge badge-info">{{request.session.cart.keys|length}}</span>
             <span class="sr-only">(current)</span></a>
         </li>
         {% if request.session.customer %} <!-- if customer is logined. customer is stored in session so request.session.customer -->
         
         <li class="nav-item ">
-          <a class="nav-link text-white" href="/orders">Orders<span class="sr-only">(current)</span></a>
+          <a class="nav-link text-white" href="/orders">MY Bookings<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item ">
           <a class="nav-link text-white" href="/logout">Logout<span class="sr-only">(current)</span></a>

@@ -15,17 +15,36 @@ class CheckOut(View):
         customer = request.session.get('customer')
         cart = request.session.get('cart')
         products = Product.get_products_by_id(list(cart.keys()))
-        print(address, phone, customer, cart, products)
-
+        # print(address, phone, customer, cart, products)
+        i=0
+        j=0
+        my_bookings=Order.get_orders_by_customer(customer)
+        # print(f"bookings= {my_bookings}")
         for product in products:
-            print(cart.get(str(product.id)))
-            order = Order(customer=Customer(id=customer),
-                          product=product,
-                          price=product.price,
-                          address=address,
-                          phone=phone,
-                          quantity=cart.get(str(product.id)))
-            order.save()
-        request.session['cart'] = {}
+            i+=1
+        for book in my_bookings:
+            if book.status!=True:
+                j+=1
 
-        return redirect('cart')
+        if i<2 and j==0:
+
+            for product in products:
+                print(cart.get(str(product.id)))
+                order = Order(customer=Customer(id=customer),
+                            product=product,
+                            price=product.price,
+                            address=address,
+                            phone=phone,
+                            quantity=cart.get(str(product.id)))
+                order.save()
+            request.session['cart'] = {}
+            return redirect('cart')
+
+
+        else:
+            # print("Else")
+            request.session.get('cart')
+
+            # return redirect('cart',{'message':"Cannot Book Multiple Packages At A Time"})
+            return redirect('cart')
+

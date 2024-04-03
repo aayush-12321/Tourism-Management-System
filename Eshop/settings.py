@@ -78,8 +78,8 @@ WSGI_APPLICATION = 'Eshop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'python_project1',
-        'USER':'python_project',
+        'NAME': 'Tourism_Management_System',
+        'USER':'postgres',
         'PASSWORD':'root'
     }
 }
