@@ -1,0 +1,105 @@
+<!-- search_results.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+
+Tourism-MGMTs-SearchResults
+
+{% endblock %}
+
+{% block content %}
+
+{% load cart %}
+{% load custom_filter %}
+
+{% if error_message == None %}
+
+
+<div class="mt-3">
+<h1>Result For Your Search '{{query}}'</h1>
+<hr style="border-top: 2px solid rgb(19, 6, 139);">
+</div>
+
+
+<div id='packages' class="col-lg-9 mx-auto my-4">
+    <div class="row mx-auto">
+        {% for package in packages %}
+        <div class="card mx-auto mb-3" id=pr{{package.id}} style="width: 18rem;">
+            <img class="card-img-top" src="{{package.image.url}}" alt="Card image cap">
+            <div class="card-body">
+                <p class="card-title">{{package.name}}</p>
+                <p class="card-text"><b>{{package.price|currency}}</b></p>
+                <!-- passing package and cart object to is_ in_cart ipresent in templatetags cart  -->
+
+                <!-- {{package | is_in_cart:request.session.cart }} -->
+            </div>
+
+            <div class="card-footer p-0 no-gutters">
+
+                <!--  -->
+                <div>
+                    <!-- <a href="/quickview/{{package.id}}"><button id="qv{{package.id}}" class=" btn btn-light btn-block border "
+                            ,name={{package.id}}>QuickView</button></a>-->
+                            <a href="/quickview/{{ package.id }}"
+                            id="qv{{ package.id }}"
+                            class="btn btn-light btn-block border"
+                            role="button"
+                            name="{{ package.id }}">QuickView</a>
+                </div>
+                <!--for + and - button and add to cart button-->
+
+                {% if package|is_in_cart:request.session.cart %}
+                <!-- package and cart is passed in is_in_cart =>templatetags cart.py-->
+
+                <!-- if package in cart -->
+
+                <div class="row no-gutters">
+                    <form action="/search/?query={{query}}#pr{{package.id}}" class="col-2 " method="post">
+                        <!-- By using /#{{package.id}}, page will not return to top after + or - or add to cart. -->
+                        {% csrf_token %}
+                        <input hidden type="text" name='package' value='{{package.id}}'>
+                        <input hidden type="text" name='remove' value='True'> <!-- + - home.py in-->
+
+                        <input type="submit" value=" - " class="btn btn-block btn-light border-right">
+                    </form>
+                    <div class="text-center col">{{package|cart_quantity:request.session.cart}} in Cart</div>
+                    <form action="/search/?query={{query}}#pr{{package.id}}" class="col-2 " method="post">
+                        <!-- By using /#{{package.id}}, page will not return to top after + or - or add to cart. -->
+                        {% csrf_token %}
+                        <input hidden type="text" name='package' value='{{package.id}}'>
+                        <input type="submit" value=" + " class="btn btn-block btn-light border-left">
+                    </form>
+                </div>
+                {% else %}
+                <form action="/search/?query={{query}}#pr{{package.id}}" method="POST" class="btn-block">
+                    <!-- By using /#{{package.id}}, page will not return to top after + or - or add to cart. -->
+                    {% csrf_token %}
+                    <input hidden type="text" name='package' value='{{package.id}}'>
+                    <input type="submit" class="float-right btn btn-light  form-control" value="Add To Cart">
+                </form>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+        
+       
+
+    </div>
+</div>
+
+
+{% else %}
+<p>
+    {{error_message}}
+
+</p>
+
+
+{% endif %}
+<!--  -->
+
+{% endblock %}

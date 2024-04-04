@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+Tourism-MGMT-bookings
+
+{% endblock %}
+
+{% block content %}
+{% load cart %}
+{% load custom_filter %}
+<div class="container">
+   <div class="bbooking rounded p-4 m-4">
+        <p class="display-4 pl-4 ml-4">Your Bookings</p>
+        <hr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Sno.</th>
+                    <th>Image</th>
+                    <th>Package</th>
+                    <th>Date</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% for booking in bookings %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td><img style="height: 80px;" class="rounded-circle" src="{{booking.package.image.url}}" alt=""></td>
+                    <td>{{booking.package.name}}</td>
+                    <td>{{booking.date}}</td>
+                    <td>{{booking.price|currency}}</td>
+                    <td>{{booking.quantity}}</td>
+                    <td>{{booking.quantity|multiply:booking.price|currency}}</td>
+                    {% if booking.status %}
+                    <td><small class="badge badge-success">Completed</small></td>
+                    {%else%}
+                    <td><small class="badge badge-warning">Pending</small></td>
+                    {% endif %}
+                </tr>
+
+                {% endfor %}
+               
+            </tbody>
+
+        </table>
+       
+   </div>
+</div>
+
+
+
+
+
+{% endblock %}
