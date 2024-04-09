@@ -134,12 +134,13 @@ def search_results(request):
             Q(description__icontains=query) |
             Q(category__name__icontains=query)
         ).distinct()
-        error_message=None
-        return render(request, 'search_results.html', {'packages': packages,'error_message':error_message,'query':query})
-    else:
-        # packages = []
-        error_message="Please make Sure To Enter Relevent Search!"
-        # messages.error(request,"Wrong credentials!!!")
-        # return redirect('homepage')
+        if len(packages)==0:
+            error_message="Please make Sure To Enter Relevent Search!"
 
-        return render(request, 'search_results.html', {'error_message':error_message,'query':query})
+            # messages.success(request,"Congratulations! User Registered Successfully.")
+            # redirect('homepage')
+            return render(request, 'search_results.html', {'packages': packages,'query':query,'error_message':error_message})
+        else:
+            error_message=None
+            return render(request, 'search_results.html', {'packages': packages,'error_message':error_message,'query':query})
+   

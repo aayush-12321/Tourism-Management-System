@@ -17,13 +17,14 @@ Tourism-MGMT-QuickView
     <div class="row">
     <div class="col-md-4">
     <div class="row">
-        <img src="{{package.image.url}}" class="card-img-top" alt="{{package.name}}"  width="222px" height="355px">
+        <!-- <img src="{{package.image.url}}" class="card-img-top" alt="{{package.name}}"  width="222px" height="355px"> -->
+        <img src="{{package.image.url}}" class="card-img-top" alt="{{package.name}}"  width="222px">
         <!-- <img src="/uploads/{{package.image}}" width="222px" height="355px"> -->
 
     </div>
         <div class="card-footer p-0 no-gutters">
             <!-- <button class="btn btn-primary my-3">Buy Now</button> -->
-            <!-- <button class="btn btn-primary mx-3 my-3">Add To Cart</button> -->
+            <!-- <button class="btn btn-primary mx-3 my-3">Add To cart</button> -->
 
             {% if package|is_in_cart:request.session.cart %}   <!-- package and cart is passed in is_in_cart =>templatetags cart.py-->
 
@@ -38,7 +39,7 @@ Tourism-MGMT-QuickView
 
 								<input type="submit" value=" - " class="btn btn-block btn-light bbooking-right">
 							</form>
-							<div class="text-center col">{{package|cart_quantity:request.session.cart}} in Cart</div>
+							<div class="text-center col">{{package|cart_quantity:request.session.cart}} in cart</div>
 							<form action="/quickview/{{package.id}}" class="col-2 " method="post"><!-- By using /#{{package.id}}, page will not return to top after + or - or add to cart. -->
 								{% csrf_token %}
 								<input hidden type="text" name='package' value='{{package.id}}'>
@@ -50,7 +51,7 @@ Tourism-MGMT-QuickView
 							{% csrf_token %}
 							<input hidden type="text" name='package' value='{{package.id}}'>
 							<input type="submit" class="float-right btn btn-light  form-control my-3"
-								value="Add To Cart">
+								value="Add To cart">
 						</form>
 						{% endif %}
 

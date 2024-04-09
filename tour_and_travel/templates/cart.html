@@ -2,16 +2,23 @@
 
 {% block title %}
 
-Tourism-MGMT-Cart
+MobileStore-cart
 
 {% endblock %}
 
 {% block content %}
 {% load cart %}
 {% load custom_filter %}
+
+{% if message %}
+<div class="alert alert-{% if error %}danger{% else %}success{% endif %} alert-dismissible fade show" role="alert">
+  {{message}}
+</div>
+{% endif %}
+
 <div class="container">
    <div class="border rounded p-4 m-4">
-        <p class="display-4 pl-4 ml-4">Book Now</p>
+        <p class="display-4 pl-4 ml-4">Your Bookings</p>
         <hr>
         <table class="table">
             <thead>
@@ -20,7 +27,7 @@ Tourism-MGMT-Cart
                     <th>Image</th>
                     <th>Package</th>
                     <th>Price</th>
-                    <th>Quantity</th>
+                    <th>People</th>
                     <th>Total</th>
                 </tr>
             </thead>
@@ -50,7 +57,7 @@ Tourism-MGMT-Cart
         </table>
         <hr>
         <div class="m-3 p-3">
-            <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-outline-info border rounded  col-lg-3 float-right">Book Package</a>
+            <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-outline-info border rounded  col-lg-3 float-right">Book Now</a>
         </div>
    </div>
 </div>
@@ -76,16 +83,16 @@ Tourism-MGMT-Cart
             <form action="/check-out" method="POST">
                 {% csrf_token %}
                 <div class="form-group">
-                  <label for="">Remarks</label>
-                  <input type="text" name="address" id="" class="form-control" placeholder="" aria-describedby="helpId">
-                  
-                </div>
-                <div class="form-group">
-                    <label for="">Phone</label>
-                    <input type="text" name="phone" id="" class="form-control" placeholder="" aria-describedby="helpId">
-                  </div>
+                  <label for="address">Remarks</label>
+                  <input type="text" name="address" id="address" class="form-control" placeholder="Remarks" aria-describedby="helpId" required>
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text" name="phone" id="phone" class="form-control" placeholder="9800000000" aria-describedby="helpId" required pattern="\+?[0-9]{10,}">
+                <small id="helpId" class="text-muted">Please enter a valid phone number</small>
+            </div>            
 
-                  <input type="submit" class="btn float-right btn-outline-info col-lg-6" value="Check out">
+                  <input type="submit" class="btn float-right btn-outline-info col-lg-6" value="Confirm Booking">
             </form>
           </div>
         </div>
@@ -93,6 +100,8 @@ Tourism-MGMT-Cart
       </div>
     </div>
   </div>
+    
+</div>
 
 
 

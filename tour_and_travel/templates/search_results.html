@@ -16,8 +16,8 @@ Tourism-MGMTs-SearchResults
 
 
 <div class="mt-3">
-<h1>Result For Your Search '{{query}}'</h1>
-<hr style="border-top: 2px solid rgb(19, 6, 139);">
+    <h1>Result For Your Search '{{query}}'</h1>
+    <hr style="border-top: 2px solid rgb(19, 6, 139);">
 </div>
 
 
@@ -40,11 +40,8 @@ Tourism-MGMTs-SearchResults
                 <div>
                     <!-- <a href="/quickview/{{package.id}}"><button id="qv{{package.id}}" class=" btn btn-light btn-block border "
                             ,name={{package.id}}>QuickView</button></a>-->
-                            <a href="/quickview/{{ package.id }}"
-                            id="qv{{ package.id }}"
-                            class="btn btn-light btn-block border"
-                            role="button"
-                            name="{{ package.id }}">QuickView</a>
+                    <a href="/quickview/{{ package.id }}" id="qv{{ package.id }}" class="btn btn-light btn-block border"
+                        role="button" name="{{ package.id }}">QuickView</a>
                 </div>
                 <!--for + and - button and add to cart button-->
 
@@ -62,7 +59,7 @@ Tourism-MGMTs-SearchResults
 
                         <input type="submit" value=" - " class="btn btn-block btn-light border-right">
                     </form>
-                    <div class="text-center col">{{package|cart_quantity:request.session.cart}} in Cart</div>
+                    <div class="text-center col">{{package|cart_quantity:request.session.cart}} in cart</div>
                     <form action="/search/?query={{query}}#pr{{package.id}}" class="col-2 " method="post">
                         <!-- By using /#{{package.id}}, page will not return to top after + or - or add to cart. -->
                         {% csrf_token %}
@@ -75,7 +72,7 @@ Tourism-MGMTs-SearchResults
                     <!-- By using /#{{package.id}}, page will not return to top after + or - or add to cart. -->
                     {% csrf_token %}
                     <input hidden type="text" name='package' value='{{package.id}}'>
-                    <input type="submit" class="float-right btn btn-light  form-control" value="Add To Cart">
+                    <input type="submit" class="float-right btn btn-light  form-control" value="Add To cart">
                 </form>
                 {% endif %}
 
@@ -85,18 +82,18 @@ Tourism-MGMTs-SearchResults
 
         {% endfor %}
 
-        
-       
+
+
 
     </div>
 </div>
 
 
 {% else %}
-<p>
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
     {{error_message}}
 
-</p>
+</div>
 
 
 {% endif %}
