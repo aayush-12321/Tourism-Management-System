@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Tourism-MGMT-Home
+{% endblock %}
+
+{% block style %} 
+<style>
+.list-group-item.active {
+    color: black !important;
+    background-color: #d8d6d6 !important;
+    border-color: #d8d6d6 !important;
+}
+</style>
+<!-- The !important keyword is used to override any other conflicting styles. -->
+{% endblock %}
+
+{% block content %}
+
+{% load cart %}
+{% load custom_filter %}
+<!-- body -->
+<div class="container-fluid mt-3">
+	<div class="row">
+
+
+		<!-- filter -->
+
+		<div class="col-lg-3 mx-auto ">
+			<div class="list-group">
+
+				<a href="/" class="list-group-item list-group-item-action one-edge-shadow {% if not request.GET.category %}active{% endif %}">Categories</a>
+				<hr style="border-top: 1px solid blue;">
+
+				{% for category in categories %}
+				<!-- By using ? category id can be passed into category (called Queyr string). and category can be accessed from home.py-->
+
+				<a href="/?category={{category.id}}"
+					class="list-group-item list-group-item-action {% if request.GET.category == category.id|stringformat:'s' %}active{% endif %} ">{{category.name}}</a>
+				{% endfor %}
+			</div>
+		</div>
+
+		<!-- all packages -->
+		<div id='packages' class="col-lg-9 mx-auto">
+			<div class="row mx-auto">
+				{% for package in packages %}
+				<div class="card mx-auto mb-3" id={{package.id}} style="width: 18rem;">
+					<img class="card-img-top" src="{{package.image.url}}" alt="Card image cap">
+					<div class="card-body">
+						<p class="card-title">{{package.name}}</p>
+						<p class="card-text"><b>{{package.price|currency}}</b></p>
+						<!-- passing package and cart object to is_ in_cart ipresent in templatetags cart  -->
+
+						<!-- {{package | is_in_cart:request.session.cart }} -->
+					</div>
+
+					<div class="card-footer p-0 no-gutters">
+
+						<!--  -->
+						<div>
+							<!-- <a href="/quickview/{{package.id}}"><button id="qv{{package.id}}" class=" btn btn-light btn-block border "
+									,name={{package.id}}>QuickView</button></a>-->
+									<a href="/quickview/{{ package.id }}"
+									id="qv{{ package.id }}"
+									class="btn btn-light btn-block border"
+									role="button"
+									name="{{ package.id }}">QuickView</a>
+						</div>
+						<!--for + and - button and add to cart button-->
+
+						{% if package|is_in_cart:request.session.cart %}
+						<!-- package and cart is passed in is_in_cart =>templatetags cart.py-->
+
+						<!-- if package in cart -->
+
+						<div class="row no-gutters">
+							<form action="/#{{package.id}}" class="col-2 " method="post">
+								<!-- By using /#{{package.id}}, page will not return to top after + or - or add to cart. -->
+								{% csrf_token %}
+								<input hidden type="text" name='package' value='{{package.id}}'>
+								<input hidden type="text" name='remove' value='True'> <!-- + - home.py in-->
+
+								<input type="submit" value=" - " class="btn btn-block btn-light border-right">
+							</form>
+							<div class="text-center col">{{package|cart_quantity:request.session.cart}} in cart</div>
+							<form action="/#{{package.id}}" class="col-2 " method="post">
+								<!-- By using /#{{package.id}}, page will not return to top after + or - or add to cart. -->
+								{% csrf_token %}
+								<input hidden type="text" name='package' value='{{package.id}}'>
+								<input type="submit" value=" + " class="btn btn-block btn-light border-left">
+							</form>
+						</div>
+						{% else %}
+						<form action="/#{{package.id}}" method="POST" class="btn-block">
+							<!-- By using /#{{package.id}}, page will not return to top after + or - or add to cart. -->
+							{% csrf_token %}
+							<input hidden type="text" name='package' value='{{package.id}}'>
+							<input type="submit" class="float-right btn btn-light  form-control" value="Add To cart">
+						</form>
+						{% endif %}
+
+					</div>
+
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+
+
+{% endblock %}
