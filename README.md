@@ -7,4 +7,5 @@
  }
 
 2) Add category and packages(if not present) from admin panel to check
-    -(py manage.py createsuperuser)
+   
+3) To create superuser(py manage.py createsuperuser)
