@@ -2,7 +2,7 @@
 
 {% block title %}
 
-Tourism-MGMT-bookings
+Tourism-MGMT-Booking History 
 
 {% endblock %}
 
@@ -19,9 +19,11 @@ Tourism-MGMT-bookings
                     <th>Sno.</th>
                     <th>Image</th>
                     <th>Package</th>
-                    <th>Date</th>
+                    <th>Booked Date</th>
+                    <th>Travel Date</th>
                     <th>Price</th>
-                    <th>Quantity</th>
+                    <!-- <th>Duration</th> -->
+                    <th>People</th>
                     <th>Total</th>
                     <th>Status</th>
                 </tr>
@@ -34,7 +36,9 @@ Tourism-MGMT-bookings
                     <td><img style="height: 80px;" class="rounded-circle" src="{{booking.package.image.url}}" alt=""></td>
                     <td>{{booking.package.name}}</td>
                     <td>{{booking.date}}</td>
+                    <td>{{booking.traveldate}}</td>
                     <td>{{booking.price|currency}}</td>
+                    <!-- <td>{{booking.duration}}</td> -->
                     <td>{{booking.quantity}}</td>
                     <td>{{booking.quantity|multiply:booking.price|currency}}</td>
                     {% if booking.status %}

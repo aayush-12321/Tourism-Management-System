@@ -6,6 +6,10 @@ from django.views import View
 
 from tour_and_travel.models.package import Package
 from tour_and_travel.models.booking import Booking
+from django.utils import timezone
+import datetime
+
+
 
 '''
 class CheckOut(View):
@@ -55,12 +59,14 @@ class CheckOut(View):
 
 class CheckOut(View):
     def post(self, request):
-        address = request.POST.get('address')
+        address = request.POST.get('remark')
         phone = request.POST.get('phone')
+        traveldate=request.POST.get('traveldate')
         customer = request.session.get('customer')
         cart = request.session.get('cart')
         packages = Package.get_packages_by_id(list(cart.keys()))
         no_of_prods=len(packages)
+        print(traveldate)
         # print(address, phone, customer, cart, packages)
         i=0
         j=0
@@ -75,14 +81,18 @@ class CheckOut(View):
                 j+=1
 
         if i<2 and j==0:
+            # print(datetime.datetime.today),
 
             for package in packages:
                 # print(cart.get(str(package.id)))
+
                 booking = Booking(customer=Customer(id=customer),
                             package=package,
                             price=package.price,
                             address=address,
                             phone=phone,
+                            traveldate=traveldate,
+                            # travel_date=datetime.datetime.today,  #
                             quantity=cart.get(str(package.id)))
                 booking.save()
                 message="   Successfully Booked!"

@@ -8,6 +8,7 @@ class Package(models.Model):
     price = models.IntegerField(null=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
     description = models.CharField(max_length=300, default='' , null=True , blank=True)
+    duration=models.IntegerField(default=1)
     image = models.ImageField(upload_to='uploads/packages/')
 
     @staticmethod # it does not require an instance of class to be called

@@ -14,5 +14,6 @@ class bookingView(View):
     def get(self , request ):
         customer = request.session.get('customer')
         bookings = Booking.get_bookings_by_customer(customer) # it is defined in bookings.py modles
+        
         # print(bookings)
         return render(request , 'booking.html'  , {'bookings' : bookings})
