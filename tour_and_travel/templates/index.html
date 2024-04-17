@@ -50,7 +50,8 @@ Tourism-MGMT-Home
 					<img class="card-img-top" src="{{package.image.url}}" alt="Card image cap">
 					<div class="card-body">
 						<p class="card-title">{{package.name}}</p>
-						<p class="card-text"><b>{{package.price|currency}}</b>
+						<!-- <p class="card-text"><b>{{package.price|currency}}</b> -->
+						<p class="card-text"><b>Rs. {{package.price}}</b>
 						<br><b>Duration </b>: {{package.duration}} days </p>
 						<!-- passing package and cart object to is_ in_cart ipresent in templatetags cart  -->
 

@@ -39,9 +39,9 @@ Tourism-MGMT-Booking History
                     <td>{{booking.traveldate}}</td>
                     <td>{{booking.price|currency}}</td>
                     <!-- <td>{{booking.duration}}</td> -->
-                    <td>{{booking.quantity}}</td>
-                    <td>{{booking.quantity|multiply:booking.price|currency}}</td>
-                    {% if booking.status %}
+                    <td>{{booking.no_of_people}}</td>
+                    <td>{{booking.no_of_people|multiply:booking.price|currency}}</td>
+                    {% if booking.Verification %}
                     <td><small class="badge badge-success">Completed</small></td>
                     {%else%}
                     <td><small class="badge badge-warning">Pending</small></td>

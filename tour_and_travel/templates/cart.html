@@ -4,6 +4,16 @@
 Tourism-MGMT-Booking
 {% endblock %}
 
+{% block style %} 
+<style>
+p {
+  color: #999; /* Or any other lighter color you prefer */
+  text-align: right;
+}
+</style>
+
+{% endblock %}
+
 {% block content %}
 {% load cart %}
 {% load custom_filter %}
@@ -58,6 +68,17 @@ Tourism-MGMT-Booking
         </tfoot>
       </table>
       <hr>
+      {% if packages %}
+      <div class="form-row">
+        <div class="col-md-6">
+      <input type="text" class=" form-control" name="remark" placeholder="Remarks" required>
+    </div>
+    <div class="col-md-6">
+        <input type="tel" class="form-control" name="phone" id="phone" placeholder="Enter phone number" required pattern="(\+?\d{10,})">
+        </div>
+        </div>
+         <p>Phone number must be at least 10 digits long and can start with '+'.</p>
+        {% endif %}
       <div class="m-3 p-3">
         <button type="submit" class="btn btn-outline-info border rounded  col-lg-3 float-right">Book Now</button>
       </div>

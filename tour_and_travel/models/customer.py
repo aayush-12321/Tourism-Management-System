@@ -17,6 +17,13 @@ class Customer(models.Model):
             return Customer.objects.get(email=email)  # get will give single record but filter will give list
         except:
             return False
+    
+    @staticmethod # it does not require an instance of class to be called
+    def get_customer_by_id(id): # it is used in login.py to get customer
+        try:  # get throws error if email is not present in db 
+            return Customer.objects.get(id=id)  # get will give single record but filter will give list
+        except:
+            return False
 
 
     def isExists(self): # it is used in signup.py to check if email already exists or not
@@ -26,6 +33,6 @@ class Customer(models.Model):
         return  False
     
     def __str__(self):
-        return self.first_name
+        return f'{self.first_name} - {self.email}'
 
 

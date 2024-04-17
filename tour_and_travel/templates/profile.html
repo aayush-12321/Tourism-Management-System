@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block content %}
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">User Profile</h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="username">Name:</label>
+                        <input type="text" id="username" class="form-control" value="{{ user.first_name }} {{ user.last_name }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" class="form-control" value="{{ user.email }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone no.:</label>
+                        <input type="tel" id="phone" class="form-control" value="{{ user.phone }}" readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

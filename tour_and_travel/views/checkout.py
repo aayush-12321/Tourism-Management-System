@@ -19,6 +19,20 @@ class CheckOut(View):
         packages = Package.get_packages_by_id(list(cart.keys()))
         message = None
         error = False
+        remarks = request.POST.get(f'remark')
+        phone = request.POST.get(f'phone')
+        # if len(phone) < 10:
+        #      message = 'Phone Number must be 10 char Long!!'
+        #      error=True
+        # else:
+        #     try:
+        #         int(phone)
+        #     except:
+        #         message = 'Enter Phone Number Correctly!!'
+        #         error=True
+        print(remarks)
+        print(phone)
+
 
         # Dictionary to store end dates of the bookings
         booking_end_dates = {}
@@ -59,7 +73,9 @@ class CheckOut(View):
                                   package=package,
                                   price=package.price,
                                   traveldate=traveldate,
-                                  quantity=cart.get(str(package.id)))
+                                  remarks=remarks,
+                                  phone=phone,
+                                  no_of_people=cart.get(str(package.id)))
                 booking.save()
             message = "Successfully Booked!"
             request.session['cart'] = {}
@@ -124,7 +140,7 @@ class CheckOut(View):
 #                                       package=package,
 #                                       price=package.price,
 #                                       traveldate=traveldate,
-#                                       quantity=cart.get(str(package.id)))
+#                                       no_of_people=cart.get(str(package.id)))
 #                     booking.save()
 #                 message = "Successfully Booked!"
 #                 request.session['cart'] = {}
@@ -180,7 +196,7 @@ class CheckOut(View):
 #                                   package=package,
 #                                   price=package.price,
 #                                   traveldate=traveldate,
-#                                   quantity=cart.get(str(package.id)))
+#                                   no_of_people=cart.get(str(package.id)))
 #                 booking.save()
 #             message = "Successfully Booked!"
 #             request.session['cart'] = {}
@@ -245,7 +261,7 @@ class CheckOut(View):
 #                         # phone=phone,
 #                         traveldate=traveldate,
 #                         # travel_date=datetime.datetime.today,  #
-#                         quantity=cart.get(str(package.id)))
+#                         no_of_people=cart.get(str(package.id)))
 #             booking.save()
 #             message="   Successfully Booked!"
 
@@ -318,7 +334,7 @@ class CheckOut(View):
 #                             address=address,
 #                             phone=phone,
 #                             traveldate=traveldate,
-#                             quantity=cart.get(str(package.id)))
+#                             no_of_people=cart.get(str(package.id)))
 #                 # else: 
 #                 #     booking = Booking(customer=Customer(id=customer),
 #                 #                 package=package,
@@ -326,7 +342,7 @@ class CheckOut(View):
 #                 #                 address=address,
 #                 #                 phone=phone,
 #                 #                 traveldate=traveldate,
-#                 #                 quantity=cart.get(str(package.id)))
+#                 #                 no_of_people=cart.get(str(package.id)))
 #                 booking.save()
 #                 message="Successfully Booked!"
 
