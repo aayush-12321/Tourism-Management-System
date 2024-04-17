@@ -12,11 +12,11 @@ class Booking(models.Model):
                                  on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     price = models.IntegerField()
-    address = models.CharField(max_length=50, default='', blank=True)
-    phone = models.CharField(max_length=50, default='', blank=True)
+    # address = models.CharField(max_length=50, default='', blank=True)
+    # phone = models.CharField(max_length=50, default='', blank=True)
     date = models.DateField(default=datetime.datetime.today)
-    status = models.BooleanField(default=False)
     traveldate = models.DateField(default=datetime.datetime.today)
+    Verification = models.BooleanField(default=False)
     # duration=package.duration
     # duration = models.IntegerField(default=1)  # Duration of the booked package
 
@@ -34,6 +34,7 @@ class Booking(models.Model):
     @staticmethod
     def get_bookings_by_customer(customer_id): # it is used in booking.py view
         return Booking.objects.filter(customer=customer_id).order_by('-date')
+        # return Booking.objects.filter(customer=customer_id)
 
     def __str__(self):
         return f"{self.package.name} - {self.customer.first_name}"
