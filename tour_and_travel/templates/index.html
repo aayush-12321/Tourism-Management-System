@@ -50,7 +50,9 @@ Tourism-MGMT-Home
 					<img class="card-img-top" src="{{package.image.url}}" alt="Card image cap">
 					<div class="card-body">
 						<p class="card-title">{{package.name}}</p>
-						<p class="card-text"><b>{{package.price|currency}}</b></p>
+						<!-- <p class="card-text"><b>{{package.price|currency}}</b> -->
+						<p class="card-text"><b>Rs. {{package.price}}</b>
+						<br><b>Duration </b>: {{package.duration}} days </p>
 						<!-- passing package and cart object to is_ in_cart ipresent in templatetags cart  -->
 
 						<!-- {{package | is_in_cart:request.session.cart }} -->
@@ -84,7 +86,7 @@ Tourism-MGMT-Home
 
 								<input type="submit" value=" - " class="btn btn-block btn-light border-right">
 							</form>
-							<div class="text-center col">{{package|cart_quantity:request.session.cart}} in cart</div>
+							<div class="text-center col">{{package|cart_quantity:request.session.cart}} Person</div>
 							<form action="/#{{package.id}}" class="col-2 " method="post">
 								<!-- By using /#{{package.id}}, page will not return to top after + or - or add to cart. -->
 								{% csrf_token %}

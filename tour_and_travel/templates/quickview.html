@@ -39,7 +39,7 @@ Tourism-MGMT-QuickView
 
 								<input type="submit" value=" - " class="btn btn-block btn-light bbooking-right">
 							</form>
-							<div class="text-center col">{{package|cart_quantity:request.session.cart}} in cart</div>
+							<div class="text-center col">{{package|cart_quantity:request.session.cart}} Person</div>
 							<form action="/quickview/{{package.id}}" class="col-2 " method="post"><!-- By using /#{{package.id}}, page will not return to top after + or - or add to cart. -->
 								{% csrf_token %}
 								<input hidden type="text" name='package' value='{{package.id}}'>
@@ -63,6 +63,10 @@ Tourism-MGMT-QuickView
         <p> <b>Rs.{{package.price}}</b> </p>
         <p>
             {{package.description}}
+        </p>
+		<br>
+		<p>
+			<b>Duration</b>: {{ package.duration }} Days {% if package.duration > 1 %}({{ package.duration|add:"-1" }} Nights){% endif %}
         </p>
     </div>
     </div>

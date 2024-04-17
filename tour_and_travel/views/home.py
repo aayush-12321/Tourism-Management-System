@@ -1,5 +1,6 @@
 from django.shortcuts import render , redirect , HttpResponseRedirect
 from tour_and_travel.models.package import Package
+from tour_and_travel.models.customer import Customer
 from tour_and_travel.models.category import Category
 from django.views import View
 from django.contrib.auth.decorators import login_required
@@ -16,15 +17,15 @@ class Index(View):
         cart = request.session.get('cart')
 
         if cart:  # checking if cart already exists or not
-            quantity = cart.get(package)
-            if quantity:   # if the package exists in cart 
+            no_of_people = cart.get(package)
+            if no_of_people:   # if the package exists in cart 
                 if remove:
-                    if quantity<=1:
+                    if no_of_people<=1:
                         cart.pop(package)  # remove item of key package from cart dictionary
                     else:
-                        cart[package]  = quantity-1
+                        cart[package]  = no_of_people-1
                 else:
-                    cart[package]  = quantity+1
+                    cart[package]  = no_of_people+1
 
             else:
                 cart[package] = 1
@@ -70,15 +71,15 @@ def quickView(request, myid):
         cart = request.session.get('cart')
 
         if cart:  # checking if cart already exists or not
-            quantity = cart.get(package)
-            if quantity:   # if the package exists in cart 
+            no_of_people = cart.get(package)
+            if no_of_people:   # if the package exists in cart 
                 if remove:
-                    if quantity<=1:
+                    if no_of_people<=1:
                         cart.pop(package)  # remove item of key package from cart dictionary
                     else:
-                        cart[package]  = quantity-1
+                        cart[package]  = no_of_people-1
                 else:
-                    cart[package]  = quantity+1
+                    cart[package]  = no_of_people+1
 
             else:
                 cart[package] = 1
@@ -110,15 +111,15 @@ def search_results(request):
         cart = request.session.get('cart')
 
         if cart:  # checking if cart already exists or not
-            quantity = cart.get(package)
-            if quantity:   # if the package exists in cart 
+            no_of_people = cart.get(package)
+            if no_of_people:   # if the package exists in cart 
                 if remove:
-                    if quantity<=1:
+                    if no_of_people<=1:
                         cart.pop(package)  # remove item of key package from cart dictionary
                     else:
-                        cart[package]  = quantity-1
+                        cart[package]  = no_of_people-1
                 else:
-                    cart[package]  = quantity+1
+                    cart[package]  = no_of_people+1
 
             else:
                 cart[package] = 1
@@ -143,4 +144,16 @@ def search_results(request):
         else:
             error_message=None
             return render(request, 'search_results.html', {'packages': packages,'error_message':error_message,'query':query})
-   
+
+
+def profile(request):
+    # Assuming you have authenticated users and you're using Django's built-in User model
+    # user = request.user
+    customer_id = request.session.get('customer')
+    customer=Customer.get_customer_by_id(customer_id)
+    # print(customer)
+    # print(customer)
+    
+
+
+    return render(request, 'profile.html', {'user': customer})

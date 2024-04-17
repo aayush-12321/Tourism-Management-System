@@ -2,7 +2,7 @@
 
 {% block title %}
 
-Tourism-MGMT-bookings
+Tourism-MGMT-Booking History 
 
 {% endblock %}
 
@@ -19,11 +19,13 @@ Tourism-MGMT-bookings
                     <th>Sno.</th>
                     <th>Image</th>
                     <th>Package</th>
-                    <th>Date</th>
+                    <th>Booked Date</th>
+                    <th>Travel Date</th>
                     <th>Price</th>
-                    <th>Quantity</th>
+                    <!-- <th>Duration</th> -->
+                    <th>People</th>
                     <th>Total</th>
-                    <th>Status</th>
+                    <th>Verification</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,10 +36,12 @@ Tourism-MGMT-bookings
                     <td><img style="height: 80px;" class="rounded-circle" src="{{booking.package.image.url}}" alt=""></td>
                     <td>{{booking.package.name}}</td>
                     <td>{{booking.date}}</td>
+                    <td>{{booking.traveldate}}</td>
                     <td>{{booking.price|currency}}</td>
-                    <td>{{booking.quantity}}</td>
-                    <td>{{booking.quantity|multiply:booking.price|currency}}</td>
-                    {% if booking.status %}
+                    <!-- <td>{{booking.duration}}</td> -->
+                    <td>{{booking.no_of_people}}</td>
+                    <td>{{booking.no_of_people|multiply:booking.price|currency}}</td>
+                    {% if booking.Verification %}
                     <td><small class="badge badge-success">Completed</small></td>
                     {%else%}
                     <td><small class="badge badge-warning">Pending</small></td>

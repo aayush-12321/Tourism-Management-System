@@ -3,11 +3,12 @@ from .category import Category
 
 
 class Package(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=80)
     # price = models.IntegerField(default=0)
     price = models.IntegerField(null=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
-    description = models.CharField(max_length=300, default='' , null=True , blank=True)
+    description = models.CharField(max_length=2000, default='' , null=True , blank=True)
+    duration=models.IntegerField(default=1)
     image = models.ImageField(upload_to='uploads/packages/')
 
     @staticmethod # it does not require an instance of class to be called
@@ -24,3 +25,6 @@ class Package(models.Model):
             return Package.objects.filter(category = category_id)
         else:
             return Package.get_all_packages()
+        
+    def __str__(self):
+        return f'{self.name}, {self.duration} days'
